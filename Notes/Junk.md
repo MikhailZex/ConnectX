@@ -60,7 +60,7 @@ you have two things to do the same thing? Let me explain:
 
     devilsNumber = 999;                                 // fails, just the same value every time
     weather = 'Who cares what the weather is anyways?'; // fails, the value isn't necessarily same each time tho
-```
+    ```
 
 - But hey! Did the guys at big G spare us? No. They had to build in some weird behaviours:
     
