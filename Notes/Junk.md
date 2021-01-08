@@ -1,7 +1,13 @@
 # A quick reference to Dart
 - [Variables](#Variables)
+    - [Syntax](#Syntax)
+    - [Dynamic](#Dynamic)
+    - [Const & Final](#Const%20&%20Final)
+
+- [Numbers](#Numbers)
 
 ## Variables
+### Syntax
 - In its simplest form, Variables are declared as
 
     ```
@@ -33,6 +39,7 @@
     anotherInteger = 'Text';    // Won't work, your assigning a 'String' to an 'int'
     ```
 
+### Dynamic
 - If a variable has to take on multiple types of data, use `dynamic`:
 
     ```dart
@@ -40,6 +47,7 @@
     intButAlsoAnythingElse = 'a String Variable'; // This will work as the variable was declared 'dynamic'
     ```
 
+### Const & Final
 - If you want a variable to be unchanged, use `final` or `const`. Wait, Why the bloody hell do
 you have two things to do the same thing? Let me explain:
 
@@ -81,4 +89,66 @@ you have two things to do the same thing? Let me explain:
 
     aFinalList = [1, 2, 3];     // Error as variable is 'final'
     aConstantList = [1, 2, 3];  // Error as vaiable is 'const'
+    ```
+# Numbers
+- Numbers are of two types `int` and `double`, 'no decimal' and 'decimal':
+    ```dart
+    int baseTen1 = 17;
+    int baseSixteen1 = 0x11;            // Dart doesn't have native binary support
+
+    double baseTen2 = 12.314;
+    double baseTen3 = 12;               // 12.00
+    
+    double baseTen4 = 2e+3;             // 2000.00
+    double baseSixteen2 = 1.2314e+1;    // you can't use this notation for 'int'
+    ```
+
+- Converting numbers to strings:
+    ```dart
+    int baseTen1 = 17;
+    int baseSixteen1 = 0x11;
+
+    var baseTen1String = baseTen.toString();            // 17
+    var baseSixteen1String = baseSixteen1.toString();   // 17 (not 0x11)
+
+    double number = 3.1428;
+
+    var twoPointString = number.toStringAssFixed(2);    // 3.14
+    var threePointString = number.toStringAsFixed(3);   // 3.143 (its rounded off)
+    var pointString = number.toString();                // 3.1428
+    ```
+
+- Binary operations on numbers:
+    ```dart
+    int a = 3;
+    int b = 7;
+
+    double c = 3.14;
+
+    // AND
+    var xSuccess = a & b;
+    var xFail = a & c;      // error: binary AND not defined for type 'double'
+                            // none of the binary operators will work.
+
+    // OR
+    var y = a | b;
+
+    // SHIFT
+    var z = a << b;         // left shift
+    var w = a >> b;         // Right Shift
+    ```
+
+- Operations on Constants:
+    ```dart
+    const int a = 11;
+    const int b = 12;
+    final int c = 12;
+    int d = 12;
+
+    const product = a * b;  // will work as involved variables are constants
+
+    // These won't work as c, d are not compile time constants, i.e. they haven't been created yet
+    // and product has to be assigned and created during compilation itself.
+    const product = a * c;
+    const product = a * d;
     ```
