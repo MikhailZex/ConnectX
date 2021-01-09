@@ -5,6 +5,15 @@
     - [Const & Final](#Const%20&%20Final)
 
 - [Numbers](#Numbers)
+    - [Types](#Types)
+    - [Binary Operators](#Binary%20Operators)
+    - [Arithmetic Operators](#Arithmetic%20Operators)
+    - [Note on Constants](#Note%20on%20Constants)
+
+- [Strings](#Strings)
+    - [Declaration Styles](#Declaration%20Styles)
+    - [Putting non-string data in strings](#Putting%20non-string%20data%20in%20strings)
+    - [Note on Constant Strings](#Note%20on%20Constant%20Strings)
 
 ## Variables
 ### Syntax
@@ -90,7 +99,8 @@ you have two things to do the same thing? Let me explain:
     aFinalList = [1, 2, 3];     // Error as variable is 'final'
     aConstantList = [1, 2, 3];  // Error as vaiable is 'const'
     ```
-# Numbers
+## Numbers
+### Types
 - Numbers are of two types `int` and `double`, 'no decimal' and 'decimal':
     ```dart
     int baseTen1 = 17;
@@ -118,6 +128,7 @@ you have two things to do the same thing? Let me explain:
     var pointString = number.toString();                // 3.1428
     ```
 
+### Binary Operators
 - Binary operations on numbers:
     ```dart
     int a = 3;
@@ -138,6 +149,23 @@ you have two things to do the same thing? Let me explain:
     var w = a >> b;         // Right Shift
     ```
 
+### Arithmetic Operators
+- Arithmetic Operations on numbers:
+    | Operator | Meaning                                                                  |
+    | -------- | ------------------------------------------------------------------------ |
+    | +	       | Add                                                                      |
+    | –	       | Subtract                                                                 |
+    | -expr	   | Unary minus, also known as negation (reverse the sign of the expression) |
+    | *	       | Multiply                                                                 |
+    | /	       | Divide                                                                   |
+    | ~/	   | Divide, returning an integer result                                      |
+    | %	       | Get the remainder of an integer division (modulo)                        |
+    | ++var    | var = var + 1 (expression value is var + 1)                              |
+    | var++    | var = var + 1 (expression value is var)                                  |
+    | --var    | var = var – 1 (expression value is var – 1)                              |
+    | var--    | var = var – 1 (expression value is var)                                  |
+
+### Note on Constants
 - Operations on Constants:
     ```dart
     const int a = 11;
@@ -152,3 +180,53 @@ you have two things to do the same thing? Let me explain:
     const product = a * c;
     const product = a * d;
     ```
+## Strings
+### Declaration Styles
+- You declare a string using single or double quotes:
+    ```dart
+    var s1 = 'Single quotes work well for string literals.';
+    var s2 = "Double quotes work just as well.";
+    var s3 = 'It\'s easy to escape the string delimiter.';
+    var s4 = "It's even easier to use the other delimiter.";
+
+    var multiLineString = '''
+    blah blah blah
+    bleh bleh bleh
+    just move on already
+    ''';
+
+    var multiLineString2 = """
+    God, your still reading aren't ya?
+    Shoo! Flutter isn't the best language out here,
+    Go learn python on something
+    """;
+
+    var specialTreatment = r'in a "raw" string, not even \n gets special treatment';
+    // in a "raw" string, not even \n gets special treatment.
+    ```
+
+### Putting non-string data in strings
+- String Interpolation - putting various objects into strings:
+    ```dart
+    var x = 1.23e-2;
+    var y = 'test dummy';
+
+    var interpolatedString = 'this is a $y string and its value is: $x';
+    // this is a test dummy string and its value is: 0.0123
+
+    var interpolatedStringCaps = 'this is a ${y.toUpperCase()} string and its value is: ${x}';
+    // this is a TEST DUMMY string and its value is: 0.0123
+    // note: $expr and ${expr} are equivalent
+
+    var interpolatedStingFixed = ' this is a $y sting and its value is:' + x.toStringAsFixed(2);
+    // this is a test dummy string and its value is: 0.01
+    ```
+
+### Note on Constant Strings
+- Constant Strings:
+    - Can only involve constant variables for the same reasons outlined [here (Note on Constants example)](#Note%20on%20Constants)
+    - interpolation doesn't work:
+        ```dart
+        const validConstString = '$aConstNum $aConstBool $aConstString';
+        // $aNum $aBool $aString $aConstList
+        ```

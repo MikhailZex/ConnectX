@@ -3,7 +3,7 @@ main(List<String> args) {
   const int x_bina = 0x10;
   var a = 12;
 
-  const int r = x_norm1 * a;
+  string x = 'ola';
 
   if (x_norm1 == x_bina) {
     print('true');
