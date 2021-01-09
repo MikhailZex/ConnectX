@@ -15,6 +15,8 @@
     - [Putting non-string data in strings](#Putting%20non-string%20data%20in%20strings)
     - [Note on Constant Strings](#Note%20on%20Constant%20Strings)
 
+- [Booleans](#Booleans)
+
 ## Variables
 ### Syntax
 - In its simplest form, Variables are declared as
@@ -230,3 +232,42 @@ you have two things to do the same thing? Let me explain:
         const validConstString = '$aConstNum $aConstBool $aConstString';
         // $aNum $aBool $aString $aConstList
         ```
+
+## Booleans
+- are of two type: `true` and `false`; conditionals work only on booleans:
+    ```python
+    # Python example of conditionals on non-boolean
+    if None:
+        print('this code will run')
+    
+    # Python interprets 'None' as 'False'
+    ```
+    ----------------------------------------------------------------------
+    ```dart
+    // Dart won't accept such crap
+    if(null) {
+        print('this will not run and cause an error');
+    }
+
+    // Dart likes its booleans, only booleans work for conditionals
+    if(someVariable == null){
+        print('this code will run);
+    }
+    ```
+
+## Lists
+- The same as Python Lists or JavaScript Arrays:
+    ```dart
+    var intList = [1, 2, 3];
+    intList.add('random Text');         // error: intList is 'interpreted' as List<int>, ie.e only int values
+
+    List<dynamic> dynamicList = [1, 2, 3];
+    dynamicList.add('random text');     // will work
+
+    var dynamicList2 = <dynamic>[1, 2, 3];
+    dynamicList2.add('random text');    // will work
+
+    // note: List<dynamic> abc = [1, 2, 3, 'Hello There'] is the same as
+    // List abc = <dynamic> [1, 2, 3, 'general Kenobiiahhh!']
+
+    ```

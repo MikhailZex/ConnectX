@@ -1,17 +1,9 @@
 main(List<String> args) {
-  const int x_norm1 = 16;
-  const int x_bina = 0x10;
-  var a = 12;
+  var list = [1, 2, 3];
+  // list.add('hello');
 
-  string x = 'ola';
+  var list2 = <dynamic>[1, 2, 3];
+  list2.add('value');
 
-  if (x_norm1 == x_bina) {
-    print('true');
-  } else {
-    print(x_bina);
-  }
-
-  print(31e+5.toStringAsFixed(2));
-  print('$x_bina');
-  print(13);
+  print('$list\n$list2');
 }
