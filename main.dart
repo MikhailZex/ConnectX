@@ -1,15 +1,13 @@
 main(List<String> args) {
-  var cFor = false;
-  var codes = ['A2I', 'JE00', 'M3T', 'V11'];
+  var x = [{1, 2}, {'a', 'b'}];
+  var y = <Set>[{1, 2}, {'a', 'b'}];
+  var z = <Set>[{1, 2}, {1, 2}];
+  var a = {1, 2};
 
-  var code_list = [
-    'CC:#Q1RZ',
-    if (cFor)
-      for (var i = 0; i < 10; i++)
-        'CC:#$i'
-      
-    
-  ];
 
-  print(code_list);
+
+  print(x.runtimeType);
+  print(y.runtimeType);
+  print(z.runtimeType);
+  print(a.runtimeType);
 }

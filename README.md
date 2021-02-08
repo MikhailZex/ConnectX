@@ -1,4 +1,5 @@
-# A quick example based reference to Dart's quirks
+# An example based into to Dart's quirks and powers
+
 - [Variables](#Variables)
     - [Syntax](#Syntax)
     - [Dynamic](#Dynamic)
@@ -22,6 +23,8 @@
     - [Data access and length](#Data%20access%20and%20length)
     - [Collection "true power" operators](#Collection%20operators)
 
+- [General Notes](#Misc)
+    - [Type Inference Heuristics](#Type%20Inference)
 ## Variables
 ### Syntax
 - In its simplest form, Variables are declared as
@@ -34,8 +37,8 @@
 - To have Dart 'infer' the variable type, use `var`:
 
     ```dart
-    var randomAssVariable = 'Text';   // Infered as 'String'
-    var anotherRandomAssVariable = 0; // Infered as 'Int'
+    var randomAssVariable = 'Text';   // Inferred as 'String'
+    var anotherRandomAssVariable = 0; // Inferred as 'Int'
     var pointlessVariable;            // stored as null if no value is specified
     ```
 
@@ -45,7 +48,7 @@
     String aStringVariable = 'Random Ass String';
     ```
 
-- Note that, once a type has been specified and/or infered, the type of data stored can't be changed:
+- Note that, once a type has been specified and/or inferred, the type of data stored can't be changed:
 
     ```dart
     var anInteger = 0;
@@ -86,7 +89,7 @@ you have two things to do the same thing? Let me explain:
     weather = 'Who cares what the weather is anyways?'; // fails, the value isn't necessarily same each time tho
     ```
 
-- But hey! Did the guys at big G spare us? No. They had to build in some weird behaviours:
+- But hey! Did the guys at big G spare us? No. They had to build in some weird behaviors:
     
     ```dart
     const aConstantList = []; // Equivalent to 'const []'
@@ -104,7 +107,7 @@ you have two things to do the same thing? Let me explain:
     // was never declared 'const' or 'final'. *sigh*
 
     aFinalList = [1, 2, 3];     // Error as variable is 'final'
-    aConstantList = [1, 2, 3];  // Error as vaiable is 'const'
+    aConstantList = [1, 2, 3];  // Error as variable is 'const'
     ```
 ## Numbers
 ### Types
@@ -167,10 +170,10 @@ you have two things to do the same thing? Let me explain:
     | /	       | Divide                                                                   |
     | ~/	   | Divide, returning an integer result                                      |
     | %	       | Get the remainder of an integer division (modulo)                        |
-    | ++var    | var = var + 1 (expression value is var + 1)                              |
-    | var++    | var = var + 1 (expression value is var)                                  |
-    | --var    | var = var – 1 (expression value is var – 1)                              |
-    | var--    | var = var – 1 (expression value is var)                                  |
+    | ++var    | var = var + 1 (expression value is var + 1), increment before evaluation |
+    | var++    | var = var + 1 (expression value is var), increment after evaluation      |
+    | --var    | var = var – 1 (expression value is var – 1), decrement before evaluation |
+    | var--    | var = var – 1 (expression value is var), increment after evaluation      |
 
 ### Note on Constants
 - Operations on Constants:
@@ -370,3 +373,61 @@ you have two things to do the same thing? Let me explain:
                 'CC:#$i'                    // to the conditional-if statement
         ]; // [CC:#Q1RZ]
     ```
+
+## Sets
+
+## Misc
+
+### Type Inference
+- As a rule of thumb, assume that Dart will infer the "narrowest" possible type or the "broadest"
+possible type for defined objects, and will definitely follow the supplied type
+
+    ```dart
+    // interpreted as List<int>, a very specific type-inference
+    var narrow = [1, 2, 3, 4];
+
+    // interpreted as List<Object>, you can add just about anything to this list now
+    var broad = [1, 2, 3, 'f'];
+    
+    // interpreted as List<Set<String>>, exactly as specified
+    var notExactlySpecific = <Set<String>>[{'a', 'b'}, {'c', 'd'}];
+    ```
+
+- As another general rule, assume Dart will infer the "broadest" possible type for collection
+elements
+
+    ```dart
+    // Will be interpreted as List<Set<Object>> and not List<Set<int>>, its specific for the top
+    // level element, var listSetInt --> List<Set> but the type of List elements aren't specific
+    // they're broad instead, namely Set<Object> instead of Set<int> 
+    var listSetInt = [
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    ];
+    ```
+
+- As a final general rule, a "partially-typed" collection's elements will be typed as `dynamic`
+instead of `Object`
+
+    ```dart
+    // the collection elements will be "broadly" inferred as `Object` (when untyped):
+    // List<Set<Object>>
+    var completelyInferred = [
+        {1, 2, 3},
+        {2, 3, 4},
+        {3, 4, 5}
+    ];
+
+    // the collection elements will be "broadly" inferred as `dynamic` (when it's partially-typed):
+    // List<Set<dynamic>>
+    var partiallyTyped = <Set>[
+        {1, 2, 3},
+        {2, 3, 4},
+        {3, 4, 5}
+    ];
+    ```
+
+- A Warning: This is just a general set of "rules of thumb" that help with inferring what Dart's
+type inference will infer. It's not a replacement for the type-inference document outlined on
+dart.dev
