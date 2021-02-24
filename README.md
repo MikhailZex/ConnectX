@@ -23,6 +23,9 @@
     - [Data access and length](#Data%20access%20and%20length)
     - [Collection "true power" operators](#Collection%20operators)
 
+- [Enums](#Enums)
+    - [Declaring Styles](#Declaring%20enums)
+
 - [General Notes](#Misc)
     - [Type Inference Heuristics](#Type%20Inference)
 ## Variables
@@ -308,6 +311,9 @@ you have two things to do the same thing? Let me explain:
 
     print('length: ${list.length}');    // 4 (List.length property)
     print('third obj: ${list[2]}');     // Note that the 3rd obj is index 2, Zero base accounting
+
+    list.contains(5);                   // false (List.contains checks if a value is present)
+    list.contains(3);                   // true
     ```
 ### Collection operators
 - The collection-for:
@@ -374,7 +380,67 @@ you have two things to do the same thing? Let me explain:
         ]; // [CC:#Q1RZ]
     ```
 
-## Sets
+## Enums
+
+### Declaring enums
+- Enums are just a collection of constants - they are generic "constant names" that don't map to 
+any particular value. These are usually helpful when you have to work with/on a restricted set of
+"abstract values"
+
+    ```dart
+    // Note that the pieces of a chess set are "abstract values" - there isn't a need to define
+    // them as objects and will usually be defined a s strings or integral constants. enums allow
+    // for stricter typechecking and far better performance
+
+    // notice that the enum declaration doesn't end with a ';'
+    enum chessPiece {king, queen, horse, bishop, castle, pawn}
+
+    var king = 'random string with a bad name';
+    var enumFail1 = king;   // random string with a bad name
+    var enumFail2 = queen;  // 'queen' not defined error
+    
+    // enum values have to be fully qualified
+    var enumValue = chessPiece.king;
+
+    // the enum name doubles as the type of the enum values
+    bool canMoveDiagonally(chessPiece piece){
+        if ( [chessPiece.horse, chessPiece.pawn].contains(piece) ){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    ```
+
+- Though pretty useless except in very specific use-cases, you can also access the position of
+an enum element
+
+    ```dart
+    enum chessPiece {king, queen, horse, bishop, castle, pawn}
+
+    var piece = chessPiece.castle;
+
+    // enums like arrays use zero-index accounting
+    var piecePosition = piece1.index;           // 4
+    var kingPosition = chessPiece.king.index;   // 0
+    ```
+
+- enum elements can also be incorporated into strings as:
+
+    ```dart
+    enum chessPiece {king, queen, horse, bishop, castle, pawn}
+
+    var enumElementString = chessPiece.horse.toString();    // chessPiece.horse
+    ```
+
+- A note on the use of enums
+
+    > You should always use enums when a variable (especially a method parameter) can only take
+    > one out of a small set of possible values. Examples would be things like type 
+    > constants (contract status: "permanent", "temp", "apprentice"), or flags ("execute now",
+    > "defer execution").
+    >
+    > \- Stephan, ([see the full answer at Stack Overflow](https://stackoverflow.com/a/4709224))
 
 ## Misc
 

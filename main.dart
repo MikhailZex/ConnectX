@@ -1,13 +1,16 @@
 main(List<String> args) {
-  var x = [{1, 2}, {'a', 'b'}];
-  var y = <Set>[{1, 2}, {'a', 'b'}];
-  var z = <Set>[{1, 2}, {1, 2}];
-  var a = {1, 2};
+  print(canMoveDiagonally(chessPiece.pawn));
 
+  print(chessPiece.bishop.index);
+  print(chessPiece.horse.toString());
+}
 
+enum chessPiece {king, queen, horse, bishop, castle, pawn}
 
-  print(x.runtimeType);
-  print(y.runtimeType);
-  print(z.runtimeType);
-  print(a.runtimeType);
+bool canMoveDiagonally(chessPiece piece){
+  if ([chessPiece.horse, chessPiece.castle].contains(piece)){
+      return false;
+  } else {
+      return true;
+  }
 }
